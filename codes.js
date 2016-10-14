@@ -63,23 +63,33 @@ var login = function () {
   }, username, password);
 };
 
-var result = function () {
+var result = function (cb) {
   console.log('result');
-  page.evaluate(function (status) {
+  page.evaluate(function (cb) {
     console.log(document.title);
-    console.log(document.querySelector('body > pre').innerHTML);
-  });
+    var t = document.querySelector('body > pre').innerHTML;
+    return cb(null, t);
+  }, cb);
 };
 
 var steps = [openPage, login, homePage, getToken, result];
 var i = 0;
-setInterval(function () {
+var tokens = [];
+var loop = setInterval(function () {
   if (loadInProgress === false && typeof steps[i] === "function") {
-    steps[i]();
+    if (steps[i] === result) {
+      steps[i](function (e, r) {
+        console.log(r);
+   	//console.log(tokens);
+        //tokens.push(r); 
+      });
+    } else {
+      steps[i]();
+    } 
     i++;
   }
   if (loadInProgress === false && typeof steps[i] !== "function") {
-    console.log('test complete!');
+    console.log('Finished:', tokens);
     phantom.exit();
   }
-}, 200);
+}, 20);

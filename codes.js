@@ -25,6 +25,10 @@ page.onLoadFinished = function () {
 page.onConsoleMessage = function (msg) {
   console.log('console', msg);
 };
+page.onError = function (msg) {
+  console.log('error', msg);
+  phantom.exit(1);
+};
 
 var openPage = function () {
   console.log('open', url);

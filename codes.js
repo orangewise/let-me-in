@@ -8,6 +8,7 @@ var password = system.args[2];
 var url = system.args[3];
 var homeUrl = system.args[4];
 var tokenUrl = system.args[5];
+var qty = system.args[6];
 
 page.settings.javascriptEnabled = true;
 page.settings.loadImages = false;
@@ -66,12 +67,24 @@ var login = function () {
 var result = function () {
   console.log('result');
   return page.evaluate(function () {
-    console.log(document.title);
     return document.querySelector('body > pre').innerHTML;
   });
 };
 
-var steps = [openPage, login, homePage, getToken, result];
+var createSteps = function (qty) {
+  var steps = [openPage, login, homePage];
+  var n = 0;
+  while (n < qty) {
+    steps.push(getToken);
+    steps.push(result);
+    n++;
+  }
+  return steps;
+};
+
+
+var steps = createSteps(qty);
+console.log
 var i = 0;
 var tokens = [];
 var loop = setInterval(function () {
@@ -80,7 +93,7 @@ var loop = setInterval(function () {
       tokens.push(steps[i]());
     } else {
       steps[i]();
-    } 
+    }
     i++;
   }
   if (loadInProgress === false && typeof steps[i] !== "function") {

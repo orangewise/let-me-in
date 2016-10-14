@@ -96,7 +96,7 @@ var loop = setInterval(function () {
     i++;
   }
   if (loadInProgress === false && typeof steps[i] !== "function") {
-    console.log(tokens);
+    console.log(JSON.stringify(tokens));
     phantom.exit();
   }
 }, 20);

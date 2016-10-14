@@ -1,4 +1,19 @@
 {
+  "name": "let-me-in",
+  "version": "0.0.1",
+  "description": "Generate ISAM tokens",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "generate",
+    "ISAM",
+    "tokens"
+  ],
+  "author": "Ronald Luitwieler",
+  "license": "ISC",
   "dependencies": {
     "phantomjs-prebuilt": "^2.1.13"
   }

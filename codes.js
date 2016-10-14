@@ -63,13 +63,12 @@ var login = function () {
   }, username, password);
 };
 
-var result = function (cb) {
+var result = function () {
   console.log('result');
-  page.evaluate(function (cb) {
+  return page.evaluate(function () {
     console.log(document.title);
-    var t = document.querySelector('body > pre').innerHTML;
-    return cb(null, t);
-  }, cb);
+    return document.querySelector('body > pre').innerHTML;
+  });
 };
 
 var steps = [openPage, login, homePage, getToken, result];
@@ -78,11 +77,7 @@ var tokens = [];
 var loop = setInterval(function () {
   if (loadInProgress === false && typeof steps[i] === "function") {
     if (steps[i] === result) {
-      steps[i](function (e, r) {
-        console.log(r);
-   	//console.log(tokens);
-        //tokens.push(r); 
-      });
+      tokens.push(steps[i]());
     } else {
       steps[i]();
     } 

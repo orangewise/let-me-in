@@ -3,7 +3,11 @@ var loadInProgress = false;
 var system = require('system');
 var page = require('webpage').create();
 
-var url = system.args[1];
+var username = system.args[1];
+var password = system.args[2];
+var url = system.args[3];
+var homeUrl = system.args[4];
+var tokenUrl = system.args[5];
 
 page.settings.javascriptEnabled = true;
 page.settings.loadImages = false;
@@ -26,38 +30,51 @@ var openPage = function () {
   console.log('open', url);
   loadInProgress = true;
   page.open(url, function (status) {
-    console.log(status);
-    console.log(page.content);
+    console.log('login form',status);
+  });
+};
+var homePage = function () {
+  console.log('open', homeUrl);
+  loadInProgress = true;
+  page.open(homeUrl, function (status) {
+    console.log('homepage', status, page.title);
+  });
+};
+var getToken = function () {
+  console.log('token', tokenUrl);
+  loadInProgress = true;
+  page.open(tokenUrl, function (status) {
+    console.log('tokenUrl', status, page.title);
   });
 };
 
+
 var login = function () {
-  console.log('login');
+  console.log('submit login form');
   loadInProgress = true;
-  page.evaluate(function () {
-    document.getElementById("login-email").value="username";
-    document.getElementById("login-password").value="password";
-    document.getElementById("login-form").submit();
-  });
+  page.evaluate(function (username, password) {
+    document.getElementById("username").value=username;
+    document.getElementById("password").value=password;
+    document.getElementById("logInForm").submit();
+  }, username, password);
 };
 
 var result = function () {
   console.log('result');
   page.evaluate(function (status) {
-		console.log(document.querySelectorAll('html')[0].outerHTML);
-	});
+    console.log(document.title);
+    console.log(document.querySelector('body > pre').innerHTML);
+  });
 };
 
-var steps = [openPage, login, result];
+var steps = [openPage, login, homePage, getToken, result];
 var i = 0;
 setInterval(function () {
   if (loadInProgress === false && typeof steps[i] === "function") {
-    console.log('i', i);
     steps[i]();
     i++;
   }
   if (loadInProgress === false && typeof steps[i] !== "function") {
-    console.log('i', i);
     console.log('test complete!');
     phantom.exit();
   }

@@ -1,2 +1,6 @@
 
-Usage: let-me-in
+Usage: let-me-in <COMMAND>
+
+  Commands:
+    login         ....
+    dummy -q 5    Generate 5 dummy codes

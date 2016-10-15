@@ -4,20 +4,17 @@ var options = require('../lib/options');
 
 var opts = options.parse()
 
-var username = opts[2];
-var password = process.argv[3];
-var url = process.argv[4];
-var homePage = process.argv[5];
-var tokenPage = process.argv[6];
-var qty = process.argv[7] || 1;
+if (opts) {
+  var opts = {
+    action: opts._[0],
+    username: opts.u,
+    password: opts.p,
+    url: opts.step1,
+    homePage: opts.step2,
+    tokenPage: opts.step3,
+    qty: opts.q,
+    stdout: true
+  };
 
-var opts = {
-  username: username,
-  password: password,
-  url: url,
-  homePage: homePage,
-  tokenPage: tokenPage,
-  qty: qty
-};
-
-letMeIn.getCodes(opts);
+  letMeIn.getCodes(opts);
+}

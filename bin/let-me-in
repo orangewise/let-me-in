@@ -12,7 +12,7 @@ if (opts) {
     url: opts.step1,
     homePage: opts.step2,
     tokenPage: opts.step3,
-    qty: opts.q,
+    qty: opts.q || 1,
     stdout: true
   };
 

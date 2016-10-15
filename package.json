@@ -1,6 +1,6 @@
 {
   "name": "let-me-in",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generate ISAM tokens",
   "main": "index.js",
   "devDependencies": {},

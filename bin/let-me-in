@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+var letMeIn = require('../index.js');
+var options = require('../lib/options');
+
+var opts = options.parse()
+
+var username = opts[2];
+var password = process.argv[3];
+var url = process.argv[4];
+var homePage = process.argv[5];
+var tokenPage = process.argv[6];
+var qty = process.argv[7] || 1;
+
+var opts = {
+  username: username,
+  password: password,
+  url: url,
+  homePage: homePage,
+  tokenPage: tokenPage,
+  qty: qty
+};
+
+letMeIn.getCodes(opts);

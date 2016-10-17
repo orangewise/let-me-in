@@ -1,8 +1,10 @@
 #!/usr/bin/env node
+var d = require('debug')('bin/let-me-in');
 var letMeIn = require('../index.js');
 var options = require('../lib/options');
 
 var opts = options.parse()
+d('opts', opts);
 
 if (opts) {
   var opts = {

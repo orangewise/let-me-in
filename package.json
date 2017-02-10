@@ -18,7 +18,7 @@
   "author": "Ronald Luitwieler",
   "license": "ISC",
   "dependencies": {
-    "debug": "^2.2.0",
+    "debug": "^2.6.1",
     "minimist": "^1.2.0",
     "phantomjs-prebuilt": "^2.1.13"
   }
